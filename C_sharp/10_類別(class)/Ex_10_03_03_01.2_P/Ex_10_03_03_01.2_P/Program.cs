@@ -42,11 +42,22 @@ namespace Ex_10_03_03_01._2_P
 			set
 			{
 				string id = value;
-				if (id.Length > 10) throw new ArgumentException("");
-				if (id.Substring(0,1)) throw new ArgumentException("");
-				if (true) throw new ArgumentException("");
-				if (id.Substring(1,1)!= "1" || id.Substring(1,1) != "2") throw new ArgumentException("");
-				
+				if (id.Length > 10) throw new ArgumentException("長度需大於 10");
+				if (char.IsUpper(id[0])) throw new ArgumentException("第 1 個字需為 A~Z 大寫英文字母");
+				if (id.Substring(1).All(char.IsDigit)) throw new ArgumentException("第 2~10 個字需為數字");
+
+				int[] weights = new int[] { 1, 9, 8, 7, 6, 5, 4, 3, 2, 1, 1 }; //權重
+				string countryCode = "ABCDEFGHJKLMNPQRSTUVXYWZIO";
+				string chkId = (countryCode.IndexOf(id[0]) + 10).ToString() + id.Substring(1);
+
+				int sum = 0;
+				for (int i = 0; i < chkId.Length; i++)
+				{
+					sum += chkId[i] * weights[i];	
+				}
+				if (sum % 10 != 0) throw new ArgumentException("身分證檢查碼有誤");
+
+				this._ID = id;
 			}
 		}
 	}
@@ -89,8 +100,7 @@ namespace Ex_10_03_03_01._2_P
 					
 				}
 
-
-				this._Birthday = dTime
+				this._Birthday = dTime;
 			}
 		}
 	}
