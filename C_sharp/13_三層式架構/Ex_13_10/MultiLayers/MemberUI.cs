@@ -11,54 +11,68 @@ namespace MultiLayers
 	class MemberUI
 	{
 		private string fileName = @"C:\Users\USER\source\repos\StudyNotes\C_sharp\13_三層式架構\Ex_13_10\members.txt";
+		private MemberRepository memberRepo;
+
+		[SetUp]
+		public void Init()
+		{
+			this.memberRepo = new  MemberRepository();
+		}
 
 		[TestCase(1, "allen")]
-		[TestCase(2, "Aduery")]
+		[TestCase(2, "Anna")]
 		public void CreateMember(int id, string name)
 		{
-			string recode = $"{id}.{ name }";
-			using (StreamWriter sw = File.AppendText(fileName))
+			var member = new Member
 			{
-				sw.WriteLine(recode);
-			}
+				Id = id,
+				Name = name
+			};
+			memberRepo.Create(member);
+			//string recode = $"{id}.{ name }";
+			//using (StreamWriter sw = File.AppendText(fileName))
+			//{
+			//	sw.WriteLine(recode);
+			//}
 		}
 
 		[Test]
 		public void GetAllMember()
 		{
-			var result = GetAll();
+			var result = memberRepo.GetAll();
 			result.ForEach(x =>
 			{
 				Console.WriteLine($"{x.Id}, {x.Name}");
 			});
 		}
 
-		private List<Member> GetAll()
-		{
-			var data = File.ReadAllText(this.fileName);
-			string[] rows = data.Split('\n');
-			List<Member> result = new List<Member>();
-			foreach (var row in rows)
-			{
-				if (string.IsNullOrEmpty(row)) continue;
+		//private List<Member> GetAll()
+		//{
+		//	return memberRepo.GetAll();
+		//	//var data = File.ReadAllText(this.fileName);
+		//	//string[] rows = data.Split('\n');
+		//	//List<Member> result = new List<Member>();
+		//	//foreach (var row in rows)
+		//	//{
+		//	//	if (string.IsNullOrEmpty(row)) continue;
 
-				string[] items = row.Split('.');
-				Member member = new Member
-				{
-					Id = Convert.ToInt32(items[0]),
-					Name = items[1]
-				};
-				result.Add(member);
-			}
+		//	//	string[] items = row.Split('.');
+		//	//	Member member = new Member
+		//	//	{
+		//	//		Id = Convert.ToInt32(items[0]),
+		//	//		Name = items[1]
+		//	//	};
+		//	//	result.Add(member);
+		//	//}
 
-			return result;
-		}
+		//	//return result;
+		//}
 
 		[Test]
 		public void GetMember()
 		{
 			int memberId = 1;
-			var result = GetAll().Single(x => x.Id == memberId);
+			var result = memberRepo.GetAll().Single(x => x.Id == memberId);
 
 			Console.WriteLine($"{result.Id}, {result.Name}");
 		}
@@ -67,7 +81,7 @@ namespace MultiLayers
 		public void UpdateNember()
 		{
 			int memberId = 1;
-			string name = "Anna Tsai";
+			string name = "Aduery Tsai";
 			var members = GetAll();
 			var member = members.Single(x => x.Id == memberId);
 			member.Name = name;
@@ -102,7 +116,42 @@ namespace MultiLayers
 		}
 	}
 
-	class Member
+	public class MemberRepository
+	{
+		private string fileName = @"C:\Users\USER\source\repos\StudyNotes\C_sharp\13_三層式架構\Ex_13_10\members.txt";
+
+		public void Create(Member member)
+		{
+			string recode = $"{member.Id}.{member.Name}";
+			using (StreamWriter sw = File.AppendText(fileName))
+			{
+				sw.WriteLine(recode);
+			}
+		}
+
+		public List<Member> GetAll()
+		{
+			var data = File.ReadAllText(this.fileName);
+			string[] rows = data.Split('\n');
+			List<Member> result = new List<Member>();
+			foreach (var row in rows)
+			{
+				if (string.IsNullOrEmpty(row)) continue;
+
+				string[] items = row.Split('.');
+				Member member = new Member
+				{
+					Id = Convert.ToInt32(items[0]),
+					Name = items[1]
+				};
+				result.Add(member);
+			}
+
+			return result;
+		}
+	}
+
+	public class Member
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }
