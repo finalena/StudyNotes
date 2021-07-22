@@ -11,15 +11,16 @@ namespace MultiLayers
 	class MemberUI
 	{
 		private MemberRepository memberRepo;
+		private MemberService memberService;
 
 		[SetUp]
 		public void Init()
 		{
-			this.memberRepo = new  MemberRepository();
+			this.memberRepo = new MemberRepository();
+			this.memberService = new MemberService();
 		}
 
 		[TestCase(1, "allen")]
-		[TestCase(2, "Anna")]
 		public void CreateMember(int id, string name)
 		{
 			var member = new Member
@@ -27,7 +28,31 @@ namespace MultiLayers
 				Id = id,
 				Name = name
 			};
-			memberRepo.Create(member);
+			memberService.Create(member);
+		}
+
+		[TestCase(1, null)]
+		[TestCase(2, "")]
+		[TestCase(3, "    ")]
+		public void CreateMember_name是null丟出例外(int id, string name)
+		{
+			var member = new Member
+			{
+				Id = id,
+				Name = name
+			};
+			var ex = Assert.Throws<Exception>(() => memberService.Create(member));
+		}
+
+		[TestCase(3, "012345678901234567890123456789A")]
+		public void CreateMember_name太長_丟出例外(int id, string name)
+		{
+			var member = new Member
+			{
+				Id = id,
+				Name = name
+			};
+			var ex = Assert.Throws<Exception>(() => memberService.Create(member));
 		}
 
 		[Test]
@@ -63,6 +88,26 @@ namespace MultiLayers
 		{
 			int memberId = 2;
 			memberRepo.Delete(memberId);
+		}
+	}
+
+	public class MemberService
+	{
+		private MemberRepository memberRepo;
+
+		public MemberService()
+		{
+			memberRepo = new MemberRepository();
+		}
+
+		public void Create(Member member)
+		{
+			//Validation
+			if (member == null) throw new ArgumentNullException(nameof(member));
+			if (string.IsNullOrWhiteSpace(member.Name)) throw new Exception("Name為必填");
+			if (member.Name.Length > 30) throw new Exception("Name長度不可超過30字");
+
+			memberRepo.Create(member);
 		}
 	}
 
