@@ -78,9 +78,9 @@ namespace MultiLayers
 		public void UpdateNember()
 		{
 			int memberId = 1;
-			string name = "Aduery Tsai";
+			string name = "Aduery 2";
 			Member member = new Member { Id = memberId, Name = name };
-			memberRepo.Update(member);
+			memberService.Update(member);
 		}
 
 		[Test]
@@ -108,6 +108,16 @@ namespace MultiLayers
 			if (member.Name.Length > 30) throw new Exception("Name長度不可超過30字");
 
 			memberRepo.Create(member);
+		}
+
+		public void Update(Member member)
+		{
+			//Validation
+			if (member == null) throw new ArgumentNullException(nameof(member));
+			if (string.IsNullOrWhiteSpace(member.Name)) throw new Exception("Name為必填");
+			if (member.Name.Length > 30) throw new Exception("Name長度不可超過30字");
+
+			memberRepo.Update(member);
 		}
 	}
 
