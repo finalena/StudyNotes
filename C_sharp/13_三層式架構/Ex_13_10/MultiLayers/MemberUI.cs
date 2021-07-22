@@ -87,7 +87,7 @@ namespace MultiLayers
 		public void DeleteMember()
 		{
 			int memberId = 2;
-			memberRepo.Delete(memberId);
+			memberService.Delete(memberId);
 		}
 	}
 
@@ -118,6 +118,12 @@ namespace MultiLayers
 			if (member.Name.Length > 30) throw new Exception("Name長度不可超過30字");
 
 			memberRepo.Update(member);
+		}
+
+		public void Delete(int memberId)
+		{
+			//Validation
+			memberRepo.Delete(memberId);
 		}
 	}
 
