@@ -10,14 +10,14 @@ namespace MultiLayers
 {
 	class MemberUI
 	{
-		private MemberRepository memberRepo;
+		private IMemberRepository memberRepo;
 		private MemberService memberService;
 
 		[SetUp]
 		public void Init()
 		{
 			this.memberRepo = new MemberRepository();
-			this.memberService = new MemberService();
+			this.memberService = new MemberService(this.memberRepo);
 		}
 
 		[TestCase(1, "allen")]
@@ -93,11 +93,18 @@ namespace MultiLayers
 
 	public class MemberService
 	{
-		private MemberRepository memberRepo;
+		private readonly IMemberRepository memberRepo;
 
-		public MemberService()
+		public interface IMemberService
 		{
-			memberRepo = new MemberRepository();
+			void Create(Member member);
+			void Update(Member member);
+			void Delete(int memberId);
+		}
+
+		public MemberService(IMemberRepository memberRepo)
+		{
+			this.memberRepo = memberRepo;
 		}
 
 		public void Create(Member member)
@@ -127,7 +134,17 @@ namespace MultiLayers
 		}
 	}
 
-	public class MemberRepository
+	public interface IMemberRepository
+	{
+		void Create(Member member);
+		List<Member> GetAll();
+		Member Find(int memberId);
+		void Update(Member member);
+		void Save(List<Member> members);
+		void Delete(int memberId);
+	}
+
+	public class MemberRepository : IMemberRepository
 	{
 		private string fileName = @"C:\Users\USER\source\repos\StudyNotes\C_sharp\13_三層式架構\Ex_13_10\members.txt";
 
@@ -175,7 +192,7 @@ namespace MultiLayers
 			Save(members);
 		}
 
-		private void Save(List<Member> members)
+		public void Save(List<Member> members)
 		{
 			StringBuilder sb = new StringBuilder();
 			foreach (var member in members)
