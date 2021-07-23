@@ -24,7 +24,8 @@ namespace exercise_05_06
 
 		private static int CalcTotal(int price, int tax)
 		{
-			if (price < 1 || tax < 1) throw new Exception("price 或 tax 必需大於等於零");
+			if (price < 1) throw new Exception("price 必需大於等於零");
+			if (tax < 1) throw new Exception("tax 必需大於等於零");
 			if (price < tax) throw new Exception("price 必需大於或等於 tax");
 
 			return (price + tax);

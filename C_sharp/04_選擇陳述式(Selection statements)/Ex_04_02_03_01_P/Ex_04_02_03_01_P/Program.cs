@@ -15,7 +15,9 @@ namespace exercise_04_02_03_01
 			Q3();
 			Q4();
 			Q5();
+			Q5A();
 			Q6();
+			Q6A();
 			Console.ReadLine();
 		}
 
@@ -66,7 +68,7 @@ namespace exercise_04_02_03_01
 		static void Q5()
 		{
 			DisplayHeader("Q5.等腰三角形");
-			int rows = 4;
+			int rows = 5;
 
 			for (int i = 1; i <= rows; i++)
 			{
@@ -82,9 +84,22 @@ namespace exercise_04_02_03_01
 			}
 		}
 
+		static void Q5A()
+		{
+			DisplayHeader("Q5A.等腰三角形-第二種寫法");
+			int rows = 5;
+
+			for (int i = 1; i <= rows; i++)
+			{
+				string row = new string(' ', rows - i) + new string('*', i * 2 - 1);
+				Console.WriteLine(row);
+			}
+
+		}
+
 		static void Q6()
 		{
-			DisplayHeader("Q6");
+			DisplayHeader("Q6.等腰倒三角形");
 			int rows = 4;
 
 			for (int i = rows; i >= 1; i--)
@@ -98,6 +113,18 @@ namespace exercise_04_02_03_01
 					Console.Write("*");
 				}
 				Console.WriteLine();
+			}
+		}
+
+		static void Q6A()
+		{
+			DisplayHeader("Q6A.等腰倒三角形-第二種寫法");
+			int rows = 4;
+
+			for (int i = rows; i >= 1; i--)
+			{
+				string row = new string(' ', rows - i) + new string('*', i * 2 - 1);
+				Console.WriteLine(row) ;
 			}
 		}
 

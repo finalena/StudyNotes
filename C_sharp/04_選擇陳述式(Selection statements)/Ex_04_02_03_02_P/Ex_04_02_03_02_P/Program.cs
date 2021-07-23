@@ -11,18 +11,18 @@ namespace exercise_04_02_03_02
 		static void Main(string[] args)
 		{
 			Q1();
+
+			Console.ReadLine();
 		}
 		static void Q1()
 		{
 			DisplayHeader("Q1.計算 1 + 2 + 3+ ... + N 的總和");
-			int beginNumber = 1, endNumber = 10000;
+			int beginNumber = 1, endNumber = 100;
 
 			int reslut = (beginNumber + endNumber) * endNumber / 2;
 			Console.WriteLine("總和為:" + reslut);
 
 			Console.WriteLine("遞迴解總和為: " + Sum(beginNumber, endNumber));
-
-			Console.ReadLine();
 		}
 
 		static int Sum(int beginNum, int endNum)
@@ -37,7 +37,6 @@ namespace exercise_04_02_03_02
 			Console.WriteLine("\r\n");
 			Console.WriteLine(title);
 			Console.WriteLine(new string('=', 40));
-
 		}
 	}
 }

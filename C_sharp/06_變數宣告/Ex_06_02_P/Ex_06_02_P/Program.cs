@@ -20,14 +20,13 @@ namespace exercise_06_02
 		static void Q1()
 		{
 			DisplayHeader("Q1.四捨五入到小數點以下一位");
-			
-			decimal valueA1 = 12.54M;
-			decimal valueA2 = 12.55M;
-			decimal valueA3 = 12.56M;
 
-			Console.WriteLine(Math.Round(valueA1, 1, MidpointRounding.AwayFromZero));
-			Console.WriteLine(Math.Round(valueA2, 1, MidpointRounding.AwayFromZero));
-			Console.WriteLine(Math.Round(valueA3, 1, MidpointRounding.AwayFromZero));
+			decimal[] items = new decimal[] { 12.54M, 12.55M, 12.56M };
+
+			foreach (var item in items)
+			{
+				Console.WriteLine(Math.Round(item, 1, MidpointRounding.AwayFromZero));
+			}
 		}
 
 		static void Q2()
@@ -48,20 +47,24 @@ namespace exercise_06_02
 		static void Q3()
 		{
 			DisplayHeader("Q3.無條件捨去到整數");
-			
+
+			//整數，方法有三種
 			decimal valueC1 = 12.4M;
 			decimal valueC2 = 12.5M;
 			decimal valueC3 = 12.6M;
 
-			//整數，方法有三種
 			Console.WriteLine(Math.Floor(valueC1));
 			Console.WriteLine((int)valueC2);
 			Console.WriteLine(Math.Truncate(valueC3));
 
 			//負數，方法有三種
-			Console.WriteLine(Math.Ceiling(-12.4M));
-			Console.WriteLine((int)-12.5M);
-			Console.WriteLine(Math.Truncate(-12.6M));
+			decimal valueC4 = -12.4M;
+			decimal valueC5 = -12.5M;
+			decimal valueC6 = -12.6M;
+
+			Console.WriteLine(Math.Ceiling(valueC4));
+			Console.WriteLine((int)valueC5);
+			Console.WriteLine(Math.Truncate(valueC6));
 		}
 
 		static void DisplayHeader(string title)

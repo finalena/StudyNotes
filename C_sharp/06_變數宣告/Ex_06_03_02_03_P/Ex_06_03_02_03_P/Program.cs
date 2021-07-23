@@ -30,26 +30,25 @@ namespace Ex_06_03_02_03_P
 		{
 			decimal dReslut;
 
-			while (true)
+			Console.Write($"請輸入 {beginNumber} ~ {endNumber} 之間的數, 若輸入 x 表示結束: ");
+
+			string value = Console.ReadLine();
+			if (value.ToLower() == "x") return -1;
+
+			if (!decimal.TryParse(value, out dReslut))
 			{
-				Console.Write($"請輸入 {beginNumber} ~ {endNumber} 之間的數, 若輸入 x 表示結束: ");
-
-				string value = Console.ReadLine();
-				if (value == "x") return -1;
-
-				if (!decimal.TryParse(value, out dReslut))
-				{
-					Console.WriteLine("請輸入數值");
-				}
-				else if (dReslut< beginNumber || dReslut> endNumber)
-				{
-					Console.WriteLine($"請輸入 {beginNumber} ~ {endNumber} 之間的值");
-				}
-				else
-				{
-					return dReslut;
-				}
+				Console.WriteLine("請輸入數值");
 			}
+			else if (dReslut < beginNumber || dReslut > endNumber)
+			{
+				Console.WriteLine("輸入的數值超出範圍");
+			}
+			else
+			{
+				return dReslut;
+			}
+
+			return GetNumber(beginNumber, endNumber);
 		}
 	}
 }
