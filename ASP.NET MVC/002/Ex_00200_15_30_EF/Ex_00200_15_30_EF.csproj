@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EFModels\AppDBContext.cs" />
     <Compile Include="EFModels\Category.cs" />
     <Compile Include="EFModels\Product.cs" />
     <Compile Include="Program.cs" />

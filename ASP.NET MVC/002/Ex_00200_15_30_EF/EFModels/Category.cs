@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Spatial;
 
-namespace Ex_00200_15_30_Entity_Framework.EFModels
+namespace Ex_00200_15_30_EF.EFModels
 {
 	public partial class Category
 	{

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 
-namespace Ex_00200_15_30_Entity_Framework.EFModels
+namespace Ex_00200_15_30_EF.EFModels
 {
 	public partial class AppDBContext : DbContext
 	{
