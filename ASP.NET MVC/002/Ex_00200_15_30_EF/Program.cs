@@ -41,6 +41,29 @@ namespace Ex_00200_15_30_EF
 			db.SaveChanges();
 		}
 
+		public List<Category> GetAll()
+		{
+			return db.Categories.OrderBy(x => x.DisplayOrder).ToList();
+		}
+
+		public Category Find(int categoryId)
+		{
+			return db.Categories.SingleOrDefault(x => x.Id == categoryId);
+		}
+
+		public void Update(int id, string categoryName, int displayOrder, bool enabled)
+		{
+			var entity = db.Categories.SingleOrDefault(x => x.Id == id);
+			if (entity == null) throw new Exception("record not fount");
+
+			entity.CategoryName = categoryName;
+			entity.DisplayOrder = displayOrder;
+			entity.Enabled = enabled;
+
+			db.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+			db.SaveChanges();
+		}
+
 		public void Delete(int id)
 		{
 			var entity = db.Categories.Find(id);
