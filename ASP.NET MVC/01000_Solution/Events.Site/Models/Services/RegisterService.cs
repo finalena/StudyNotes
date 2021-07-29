@@ -1,4 +1,5 @@
 ﻿using Events.Site.Models.EFModels;
+using Events.Site.Models.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,35 +9,26 @@ namespace Events.Site.Models.ServicesObject
 {
 	public class RegisterService
 	{
-		private AppDbContext db = new AppDbContext();
-
+		private RegisterRepo repo = new RegisterRepo();
 		public void Create(Register register)
 		{
 			#region validation
-			var data = db.Registers.FirstOrDefault(x => x.Email == register.Email);
-			if (data != null)
+			if (!repo.IsExists(register.Email))
 			{
 				throw new Exception("這個 email 已經報名過了，無法再次報名");
 			}
 			#endregion
-
+			
 			#region
 			register.CreateTime = DateTime.Now;
 			#endregion
 
-			db.Registers.Add(register);
-			db.SaveChanges();
+			repo.Create(register);
 		}
 
 		public Register Find(int id)
 		{
-			Register register = db.Registers.Find(id);
-			if (register == null)
-			{
-				throw new Exception("record not found");
-			}
-
-			return register;
+			return repo.Find(id);
 		}
 	}
 }

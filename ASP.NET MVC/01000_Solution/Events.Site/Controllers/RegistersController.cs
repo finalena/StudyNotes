@@ -7,18 +7,19 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Events.Site.Models.EFModels;
+using Events.Site.Models.Repositories;
 using Events.Site.Models.ServicesObject;
 
 namespace Events.Site.Controllers
 {
     public class RegistersController : Controller
     {
-        private AppDbContext db = new AppDbContext();
+		private RegisterRepo repo = new RegisterRepo();
 
         // GET: Registers
         public ActionResult Index()
         {
-            return View(db.Registers.ToList());
+			return View(repo.Search());
         }
 
         // GET: Registers/Details/5
@@ -70,15 +71,6 @@ namespace Events.Site.Controllers
             }
 
             return View(register);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }
