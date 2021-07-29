@@ -9,7 +9,6 @@ namespace Events.Site.Models.ServicesObject
 {
 	public class RegisterService
 	{
-		private AppDbContext db = new AppDbContext();
 		private RegisterRepo repo = new RegisterRepo();
 		public void Create(Register register)
 		{
@@ -19,7 +18,7 @@ namespace Events.Site.Models.ServicesObject
 				throw new Exception("這個 email 已經報名過了，無法再次報名");
 			}
 			#endregion
-
+			
 			#region
 			register.CreateTime = DateTime.Now;
 			#endregion

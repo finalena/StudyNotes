@@ -32,5 +32,10 @@ namespace Events.Site.Models.Repositories
 
 			return register;
 		}
+
+		public List<Register> Search()
+		{
+			return db.Registers.ToList();
+		}
 	}
 }
