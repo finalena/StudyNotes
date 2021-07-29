@@ -14,8 +14,7 @@ namespace Events.Site.Models.ServicesObject
 		public void Create(Register register)
 		{
 			#region validation
-			var data = db.Registers.FirstOrDefault(x => x.Email == register.Email);
-			if (data != null)
+			if (!repo.IsExists(register.Email))
 			{
 				throw new Exception("這個 email 已經報名過了，無法再次報名");
 			}
