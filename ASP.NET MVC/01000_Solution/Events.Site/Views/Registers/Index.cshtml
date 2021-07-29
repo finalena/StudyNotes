@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<Events.Site.Models.EFModels.Register>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "報名紀錄";
 }
 
-<h2>Index</h2>
+<h2>報名紀錄</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -35,9 +35,7 @@
             @Html.DisplayFor(modelItem => item.CreateTime)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("Details", "Details", new { id=item.id })
         </td>
     </tr>
 }

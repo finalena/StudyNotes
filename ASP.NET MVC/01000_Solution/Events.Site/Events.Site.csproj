@@ -176,9 +176,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Registers\Create.cshtml" />
-    <Content Include="Views\Registers\Delete.cshtml" />
     <Content Include="Views\Registers\Details.cshtml" />
-    <Content Include="Views\Registers\Edit.cshtml" />
     <Content Include="Views\Registers\Index.cshtml" />
     <Content Include="Views\GuestBooks\Create.cshtml" />
     <Content Include="Views\GuestBooks\Delete.cshtml" />
