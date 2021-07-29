@@ -46,11 +46,23 @@ namespace Events.Site.Controllers
         // 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,Name,Email,CreateTime")] Register register)
+        public ActionResult Create([Bind(Include = "id,Name,Email")] Register register)
         {
-            if (ModelState.IsValid)
+			#region validation
+			var data = db.Registers.FirstOrDefault(x => x.Email == register.Email);
+			if (data != null)
+			{
+				ModelState.AddModelError("email", "這個 email 已經報名過了，無法再次報名");
+			}
+			#endregion
+
+			#region
+			register.CreateTime = DateTime.Now;
+			#endregion
+
+			if (ModelState.IsValid)
             {
-                db.Registers.Add(register);
+				db.Registers.Add(register);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
