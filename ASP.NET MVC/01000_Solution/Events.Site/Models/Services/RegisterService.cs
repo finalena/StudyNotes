@@ -29,13 +29,7 @@ namespace Events.Site.Models.ServicesObject
 
 		public Register Find(int id)
 		{
-			Register register = db.Registers.Find(id);
-			if (register == null)
-			{
-				throw new Exception("record not found");
-			}
-
-			return register;
+			return repo.Find(id);
 		}
 	}
 }

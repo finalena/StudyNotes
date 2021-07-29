@@ -21,5 +21,16 @@ namespace Events.Site.Models.Repositories
 			var register = db.Registers.FirstOrDefault(x => x.Email == email);
 			return register == null;
 		}
+
+		public Register Find(int id)
+		{
+			Register register = db.Registers.Find(id);
+			if (register == null)
+			{
+				throw new Exception("record not found");
+			}
+
+			return register;
+		}
 	}
 }
