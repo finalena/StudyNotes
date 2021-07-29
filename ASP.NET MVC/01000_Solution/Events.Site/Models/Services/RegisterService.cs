@@ -1,4 +1,5 @@
 ﻿using Events.Site.Models.EFModels;
+using Events.Site.Models.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Events.Site.Models.ServicesObject
 	public class RegisterService
 	{
 		private AppDbContext db = new AppDbContext();
-
+		private RegisterRepo repo = new RegisterRepo();
 		public void Create(Register register)
 		{
 			#region validation
@@ -24,8 +25,7 @@ namespace Events.Site.Models.ServicesObject
 			register.CreateTime = DateTime.Now;
 			#endregion
 
-			db.Registers.Add(register);
-			db.SaveChanges();
+			repo.Create(register);
 		}
 
 		public Register Find(int id)
