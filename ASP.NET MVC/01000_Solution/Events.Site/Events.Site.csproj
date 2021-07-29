@@ -137,6 +137,7 @@
     <Compile Include="Models\EFModels\GuestBook.cs" />
     <Compile Include="Models\EFModels\AppDbContext.cs" />
     <Compile Include="Models\EFModels\Register.cs" />
+    <Compile Include="Models\Services\RegisterService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Events.Site.Models.EFModels;
+using Events.Site.Models.ServicesObject;
 
 namespace Events.Site.Controllers
 {
@@ -48,22 +49,18 @@ namespace Events.Site.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,Name,Email")] Register register)
         {
-			#region validation
-			var data = db.Registers.FirstOrDefault(x => x.Email == register.Email);
-			if (data != null)
+			try
 			{
-				ModelState.AddModelError("email", "這個 email 已經報名過了，無法再次報名");
+				new RegisterService().Create(register);
 			}
-			#endregion
+			catch (Exception ex)
+			{
 
-			#region
-			register.CreateTime = DateTime.Now;
-			#endregion
+				ModelState.AddModelError("email", ex.Message);
+			}
 
 			if (ModelState.IsValid)
             {
-				db.Registers.Add(register);
-                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
