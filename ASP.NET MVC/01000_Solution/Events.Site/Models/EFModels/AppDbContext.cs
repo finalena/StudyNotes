@@ -12,10 +12,14 @@ namespace Events.Site.Models.EFModels
 		{
 		}
 
+		public virtual DbSet<GuestBook> GuestBooks { get; set; }
 		public virtual DbSet<Register> Registers { get; set; }
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
+			modelBuilder.Entity<GuestBook>()
+				.Property(e => e.CellPhone)
+				.IsUnicode(false);
 		}
 	}
 }
