@@ -28,12 +28,17 @@ namespace Events.Site.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Register register = db.Registers.Find(id);
-            if (register == null)
-            {
-                return HttpNotFound();
-            }
-            return View(register);
+
+			try
+			{
+				var register = new RegisterService().Find(id.Value);
+
+				return View(register);
+			}
+			catch (Exception ex)
+			{
+				return HttpNotFound();
+			}
         }
 
         // GET: Registers/Create
